@@ -1,0 +1,17 @@
+post_install() {
+    sysctl --system >/dev/null
+    ulimit -n 51200 >/dev/null
+    echo "    Please reinstall your shadowsocks to patch .service files"
+    echo "    Then run \`systemctl restart shadowsocks-xxx' to apply optimization"
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    sysctl --system
+    ulimit -n 1024
+    echo "    Please reinstall your shadowsocks to restore original .service files"
+    echo "    Then run \`systemctl restart shadowsocks-xxx' to unapply optimization"
+}

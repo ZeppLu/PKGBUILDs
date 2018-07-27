@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = File
+Target = usr/lib/systemd/system/shadowsocks-libev*.service
+
+[Action]
+Description = Patching shadowsocks-libev .service files to increase ulimit...
+Exec = /usr/bin/patch -p1 /usr/lib/systemd/system/shadowsocks-libev-server@.service -i /usr/share/shadowsocks-optimization/ss-libev-server.patch
+When = PostTransaction

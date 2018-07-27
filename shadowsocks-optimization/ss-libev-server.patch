@@ -1,0 +1,8 @@
+--- a/shadowsocks-libev-server@.service	2018-07-27 08:34:54.949691988 -0700
++++ b/shadowsocks-libev-server@.service	2018-07-27 08:35:31.496358660 -0700
+@@ -7,4 +7,5 @@
+ User=nobody
+ CapabilityBoundingSet=CAP_NET_BIND_SERVICE
++LimitNOFILE=51200
+ ExecStart=/usr/bin/ss-server -c /etc/shadowsocks/%i.json
+ 

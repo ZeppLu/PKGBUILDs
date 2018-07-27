@@ -1,0 +1,28 @@
+pkgname=shadowsocks-optimization
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Optimization for shadowsocks, based on https://shadowsocks.org/en/config/advanced.html and https://github.com/shadowsocks/shadowsocks/wiki/Optimizing-Shadowsocks"
+arch=('x86_64')
+url="https://github.com/ZeppLu/PKGBUILDs"
+license=('WTFPL')
+depends=('patch')
+optdepends=("shadowsocks-libev: optimization for libev version")
+install=$pkgname.install
+source=(limits.conf
+        sysctl.conf
+        shadowsocks-libev-ulimit.hook
+        ss-libev-server.patch)
+sha256sums=('d6a690da32e85a34865239e545ccd44c940794021b6beac5db83fc40c8888c0a'
+            'e5a2b95d45372bdda853da8bc90d733bda903359986692f0257fef5ee86505e0'
+            '0b53ee73395e7aa58c5198baf823aa809c6b4a1890b5037d30eebb0bc2654440'
+            '219c09bfe17056d6319902e2c228ec05711dacdfeb52867bc610510f92d0e979')
+
+package() {
+    cd "$srcdir"
+
+    install -Dm644 "limits.conf" "$pkgdir/etc/security/limits.d/$pkgname.conf"
+    install -Dm644 "sysctl.conf" "$pkgdir/etc/sysctl.d/$pkgname.conf"
+
+    install -Dm644 "shadowsocks-libev-ulimit.hook" "$pkgdir/usr/share/libalpm/hooks/shadowsocks-libev-ulimit.hook"
+    install -Dm644 "ss-libev-server.patch" "$pkgdir/usr/share/$pkgname/ss-libev-server.patch"
+}
